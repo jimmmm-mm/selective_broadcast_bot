@@ -1,4 +1,4 @@
-import numpy as np, pandas as pd, matplotlib.pyplot as plt, seaborn as sns,warnings
+import numpy as np, pandas as pd, matplotlib.pyplot as plt, seaborn as sns, warnings
 from instagram_private_api import Client
 
 warnings.filterwarnings("ignore")
@@ -16,7 +16,6 @@ class selective_broadcast_bot(object):
         results = self.api.user_followers(
             user_id, rank_token=rank_token, count=200, extract=False
         )
-        follower_username = list
         followers_username = list(map(lambda x: x["username"], results["users"]))
         followers_user_id = list(map(lambda x: x["pk"], results["users"]))
         print(f"you have currently {len(followers_username)} followers")
@@ -93,9 +92,7 @@ if __name__ == "__main__":
         info = f.read().splitlines()
     info = {k.split(":")[0]: k.split(":")[1] for k in info}
 
-    bot = selective_broadcast_bot(
-        login_username=info["user_name"], login_password=info["password"]
-    )
+    bot = selective_broadcast_bot(**info)
     bot.get_currently_followers(generate_csv=True)
     while True:
         inp = input("type ok if you already manually created your label")
